@@ -1,0 +1,15 @@
+.canvas {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+}
+
+.line--group line {
+    stroke: #444;
+    stroke-width: 1;
+}
+
+.line--group rect {
+    fill: transparent;
+    stroke: #444;
+    stroke-width: 1;
+}
