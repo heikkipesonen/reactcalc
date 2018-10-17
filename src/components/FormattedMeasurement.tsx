@@ -1,23 +1,27 @@
-import * as React from 'react'
+import * as React from "react";
 
 interface Props {
-    x?: number
-    y?: number
-    unit: string
-    value: number
-    decimals?: number
+  x?: number;
+  y?: number;
+  unit: string;
+  value: number;
+  decimals?: number;
+  separator?: string[1];
 }
 
 const FormattedMeasurement = ({
   unit,
   value,
   decimals,
+  separator,
   ...position
 }: Props) => (
-    <text {...position}>
-        {Math.round(Math.pow(10, decimals || 2) * value) / Math.pow(10, decimals || 2) }
-        {unit}
-    </text>
+  <text {...position}>
+    {Number(value)
+      .toFixed(decimals || 2)
+      .replace(".", separator || ".")}
+    {unit}
+  </text>
 );
 
-export default FormattedMeasurement
+export default FormattedMeasurement;

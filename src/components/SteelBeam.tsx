@@ -1,7 +1,7 @@
 import * as React from 'react'
 import Line, { Props as LineProps} from './Line'
-import { Material, getMass } from 'src/data/Material';
-import { getMaxMoment } from "src/helpers/calc";
+import { Material, getMass } from '../data/Material';
+import { getMaxMoment } from "../helpers/calc";
 import { Newton, Kg, Millimeters } from '../helpers/units'
 import FormattedMeasurement from './FormattedMeasurement'
 

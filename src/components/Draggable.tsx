@@ -27,6 +27,9 @@ class Draggable extends React.Component<Props, State> {
         lastEvent: null
     }
 
+    public ref: HTMLElement | null = null
+    private unbinders: Array<() => void> = []
+
     public onDragStart = (event: MouseEvent) => {
         event.stopPropagation()
         event.preventDefault()
@@ -72,15 +75,23 @@ class Draggable extends React.Component<Props, State> {
 
     public setContainer = (el: any) => {
         const { onDragStart, onDrag, onDragEnd } = this;
-
-        addEventListener(el, 'mousedown', onDragStart)
-        addEventListener(window, 'mousemove', onDrag)
-        addEventListener(window, 'mouseup', onDragEnd)
+        if (el) {
+            this.ref = el
+            this.unbinders = [
+                addEventListener(el, 'mousedown', onDragStart),
+                addEventListener(window, 'mousemove', onDrag),
+                addEventListener(window, 'mouseup', onDragEnd)
+            ]
+        }
     }
 
     public getSvgTransform = (): string => {
         const { x, y } = this.props
         return `translate(${x}, ${y})`
+    }
+
+    public componentWillUnmount () {
+        this.unbinders.forEach((unbind) => unbind())
     }
 
     public render() {

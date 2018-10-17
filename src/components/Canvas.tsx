@@ -41,6 +41,8 @@ class Canvas extends React.PureComponent<Props, State> {
         lastEvent: null
     }
 
+    private unbinders: Array<() => void> = []
+
     public onDragStart = (event: MouseEvent) => {
         const position = getMousePointer(event)
 
@@ -95,11 +97,18 @@ class Canvas extends React.PureComponent<Props, State> {
 
     public setContainer = (el: any) => {
         const { onDragStart, onDrag, onDragEnd, zoom } = this;
+        if (el) {
+            this.unbinders = [
+                addEventListener(el, 'mousedown', onDragStart),
+                addEventListener(window, 'mousemove', onDrag),
+                addEventListener(window, 'mouseup', onDragEnd),
+                addEventListener(window, 'mousewheel', zoom)
+            ]
+        }
+    }
 
-        addEventListener(el, 'mousedown', onDragStart)
-        addEventListener(window, 'mousemove', onDrag)
-        addEventListener(window, 'mouseup', onDragEnd)
-        addEventListener(window, 'mousewheel', zoom)
+    public componentWillUnmount () {
+        this.unbinders.forEach((unbind) => unbind())
     }
 
     public getSvgTransform = (): string => {

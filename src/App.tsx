@@ -1,10 +1,10 @@
-import * as React from 'react';
-import './App.css';
-import Canvas from './components/Canvas'
-import SteelBeam from './components/SteelBeam'
-import WithState from './components/WithState'
+import * as React from "react";
+import "./App.css";
+import Canvas from "./components/Canvas";
+import SteelBeam from "./components/SteelBeam";
+import WithState from "./components/WithState";
 
-import { SHS } from './data/shs'
+import { SHS } from "./data/shs";
 
 const App = () => (
   <Canvas>
